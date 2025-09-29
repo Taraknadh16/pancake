@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pancake Store - Contact</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+    body {background:#fff; color:#333;}
+
+    /* Navbar */
+    nav {
+      display:flex; justify-content:space-between; align-items:center;
+      background:#ff9800; padding:15px 30px;
+    }
+    nav h1 {color:#fff;}
+    nav ul {list-style:none; display:flex; gap:20px;}
+    nav ul li a {
+      text-decoration:none; color:#fff; font-weight:500;
+      transition:0.3s;
+    }
+    nav ul li a:hover {color:#222;}
+
+    /* Contact Section */
+    .contact-section {
+      display:flex; justify-content:space-between; flex-wrap:wrap;
+      padding:50px;
+    }
+    .contact-form {
+      flex:1; min-width:300px; margin-right:20px;
+    }
+    .contact-form h2 {margin-bottom:20px; color:#ff9800;}
+    .contact-form input, .contact-form textarea {
+      width:100%; padding:12px; margin:10px 0; border:1px solid #ccc;
+      border-radius:8px; font-size:14px;
+    }
+    .contact-form button {
+      background:#ff9800; color:#fff; border:none; padding:12px 25px;
+      border-radius:8px; font-size:16px; cursor:pointer;
+    }
+    .contact-form button:hover {background:#e68900;}
+
+    /* Contact Info */
+    .contact-info {
+      flex:1; min-width:300px; margin-left:20px;
+    }
+    .contact-info h2 {margin-bottom:20px; color:#ff9800;}
+    .contact-info p {margin:10px 0; line-height:1.5;}
+    .map {
+      margin-top:20px;
+      width:100%; height:250px; border:none; border-radius:8px;
+    }
+
+    /* Footer */
+    footer {
+      text-align:center; padding:20px; background:#333; color:#fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <h1>Pancake Store 🥞</h1>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="orders.html">Orders</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+  </nav>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <!-- Form -->
+    <div class="contact-form">
+      <h2>Get in Touch</h2>
+      <form onsubmit="sendMessage(event)">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <input type="text" id="subject" placeholder="Subject" required>
+        <textarea id="message" rows="5" placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Info -->
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      <p>📍 Address: 123 Pancake Street, Food City</p>
+      <p>📞 Phone: +91 98765 43210</p>
+      <p>📧 Email: support@pancakestore.com</p>
+      <h3>Find Us Here:</h3>
+      <iframe class="map" src="https://maps.google.com/maps?q=New%20Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Pancake Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function sendMessage(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const subject = document.getElementById("subject").value;
+      const message = document.getElementById("message").value;
+      
+      if(name && email && subject && message){
+        alert("Thank you, " + name + "! Your message has been sent successfully.");
+      } else {
+        alert("Please fill in all fields before sending.");
+      }
+    }
+  </script>
+</body>
+</html>

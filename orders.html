@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pancake Paradise | Order Tracking</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #fffaf3;
+      color: #333;
+    }
+
+    /* Navbar */
+    header {
+      background: #ffb347;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      color: #222;
+    }
+
+    /* Orders Section */
+    .order-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 40px;
+    }
+
+    /* Left: Order Details */
+    .order-details {
+      flex: 1;
+    }
+
+    .order-details h2 {
+      color: #ff9933;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .order-card {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      background: #fffaf0;
+      border: 1px solid #eee;
+      padding: 15px;
+      border-radius: 10px;
+      align-items: center;
+    }
+
+    .order-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .order-info {
+      flex: 1;
+    }
+
+    .order-info h3 {
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    .order-info p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .order-price {
+      font-weight: bold;
+      color: #e67e22;
+    }
+
+    /* Right: Tracking */
+    .tracking-section {
+      flex: 1;
+    }
+
+    .tracking-section h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ff9933;
+    }
+
+    .order-id {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    /* Progress Tracker */
+    .progress-container {
+      list-style: none;
+      counter-reset: step;
+      padding-left: 0;
+    }
+
+    .progress-container li {
+      position: relative;
+      margin: 20px 0;
+      padding-left: 40px;
+      font-size: 1rem;
+    }
+
+    .progress-container li::before {
+      content: counter(step);
+      counter-increment: step;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 25px;
+      height: 25px;
+      background: #ddd;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 25px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .progress-container li.active::before {
+      background: #ffb347;
+    }
+
+    .progress-container li.done::before {
+      background: #4CAF50;
+    }
+
+    .progress-container li::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 28px;
+      width: 2px;
+      height: 40px;
+      background: #ddd;
+    }
+
+    .progress-container li:last-child::after {
+      display: none;
+    }
+
+    /* Timer */
+    .timer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #e67e22;
+    }
+
+    /* Footer */
+    footer {
+      background: #ffb347;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    /* Responsive */
+    @media(max-width: 900px) {
+      .order-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">🥞 Pancake Paradise</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="orders.html">Orders</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Orders Section -->
+  <section class="order-container">
+    
+    <!-- Left: Order Details -->
+    <div class="order-details">
+      <h2>Your Order</h2>
+
+      <div class="order-card">
+        <img src="https://images.unsplash.com/photo-1604909052743-94da1e2f83d3?w=300" alt="Classic Pancake">
+        <div class="order-info">
+          <h3>Classic Pancake</h3>
+          <p>Quantity: 2</p>
+          <p class="order-price">₹199</p>
+        </div>
+      </div>
+
+      <div class="order-card">
+        <img src="https://images.unsplash.com/photo-1606788075761-7a1a6a2e2b76?w=300" alt="Chocolate Pancake">
+        <div class="order-info">
+          <h3>Chocolate Pancake</h3>
+          <p>Quantity: 1</p>
+          <p class="order-price">₹149</p>
+        </div>
+      </div>
+
+      <h3 style="text-align:center; margin-top:20px;">Total: <span style="color:#e67e22;">₹348</span></h3>
+    </div>
+
+    <!-- Right: Tracking Progress -->
+    <div class="tracking-section">
+      <h1>Order Tracking</h1>
+      <p class="order-id">Order ID: #PAN12345</p>
+
+      <ul class="progress-container" id="progressList">
+        <li>Order Placed</li>
+        <li>Ingredients Checked</li>
+        <li>Batter Prepared</li>
+        <li>Cooking Started</li>
+        <li>Cooking Medium Applied</li>
+        <li>Pancake Cooked</li>
+        <li>Served with Toppings</li>
+        <li>Cost Calculated</li>
+        <li>Time Checked</li>
+        <li>Quality Verified & Ready</li>
+      </ul>
+
+      <div class="timer" id="timer">Estimated Delivery: 10:00 minutes</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Pancake Paradise. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const steps = document.querySelectorAll("#progressList li");
+    let currentStep = 0;
+    let timeLeft = 10 * 60; // 10 minutes in seconds
+
+    function updateProgress() {
+      if (currentStep < steps.length) {
+        steps[currentStep].classList.add("done");
+        if (steps[currentStep + 1]) {
+          steps[currentStep + 1].classList.add("active");
+        }
+        currentStep++;
+      }
+    }
+
+    function startTracking() {
+      steps[0].classList.add("active");
+      setInterval(updateProgress, 5000); // move to next step every 5 sec
+      setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+      if (timeLeft > 0) {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById("timer").innerText =
+          "Estimated Delivery: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + " minutes";
+      } else {
+        document.getElementById("timer").innerText = "🎉 Your Pancakes are Ready!";
+      }
+    }
+
+    window.onload = startTracking;
+  </script>
+
+</body>
+</html>

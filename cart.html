@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pancake Store - Cart</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+    body {background:#fff; color:#333;}
+
+    /* Navbar */
+    nav {
+      display:flex; justify-content:space-between; align-items:center;
+      background:#ff9800; padding:15px 30px;
+    }
+    nav h1 {color:#fff;}
+    nav ul {list-style:none; display:flex; gap:20px;}
+    nav ul li a {
+      text-decoration:none; color:#fff; font-weight:500;
+      transition:0.3s;
+    }
+    nav ul li a:hover {color:#222;}
+
+    /* Cart Section */
+    .cart-section {
+      padding:40px;
+    }
+    .cart-section h2 {
+      margin-bottom:20px;
+      color:#ff9800;
+      font-size:28px;
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-bottom:20px;
+    }
+    table th, table td {
+      padding:12px; text-align:center; border-bottom:1px solid #ddd;
+    }
+    table th {
+      background:#ff9800; color:#fff;
+    }
+    table img {
+      width:60px; border-radius:6px;
+    }
+    .quantity {
+      display:flex; justify-content:center; align-items:center; gap:8px;
+    }
+    .quantity button {
+      background:#ff9800; border:none; color:#fff; padding:5px 10px;
+      cursor:pointer; border-radius:4px; font-size:16px;
+    }
+    .remove-btn {
+      background:#e74c3c; border:none; color:#fff; padding:6px 12px;
+      cursor:pointer; border-radius:6px;
+    }
+    .remove-btn:hover {background:#c0392b;}
+
+    /* Cart Summary */
+    .cart-summary {
+      text-align:right;
+      font-size:18px;
+    }
+    .checkout-btn {
+      background:#27ae60; color:#fff; border:none; padding:12px 25px;
+      border-radius:8px; cursor:pointer; margin-top:15px; font-size:16px;
+    }
+    .checkout-btn:hover {background:#1e8449;}
+
+    /* Footer */
+    footer {
+      text-align:center; padding:20px; background:#333; color:#fff; margin-top:30px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <h1>Pancake Store 🥞</h1>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="orders.html">Orders</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+  </nav>
+
+  <!-- Cart Section -->
+  <section class="cart-section">
+    <h2>Your Cart</h2>
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Pancake</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dynamic Rows -->
+      </tbody>
+    </table>
+
+    <div class="cart-summary">
+      <p id="cart-total">Total: ₹0</p>
+      <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Pancake Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Sample cart items
+    let cart = [
+      {id:1, name:"Fluffy Pancake", price:150, qty:1, img:"https://via.placeholder.com/80"},
+      {id:2, name:"Chocolate Pancake", price:200, qty:2, img:"https://via.placeholder.com/80"}
+    ];
+
+    function renderCart() {
+      const tbody = document.querySelector("#cart-table tbody");
+      tbody.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td><img src="${item.img}" alt="${item.name}"></td>
+          <td>${item.name}</td>
+          <td>₹${item.price}</td>
+          <td class="quantity">
+            <button onclick="updateQty(${index}, -1)">-</button>
+            ${item.qty}
+            <button onclick="updateQty(${index}, 1)">+</button>
+          </td>
+          <td>₹${item.price * item.qty}</td>
+          <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
+        `;
+
+        tbody.appendChild(row);
+        total += item.price * item.qty;
+      });
+
+      document.getElementById("cart-total").textContent = "Total: ₹" + total;
+    }
+
+    function updateQty(index, change) {
+      if(cart[index].qty + change > 0) {
+        cart[index].qty += change;
+        renderCart();
+      }
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function checkout() {
+      if(cart.length === 0) {
+        alert("Your cart is empty!");
+      } else {
+        window.location.href = "checkout.html";  // ✅ Redirect to checkout page
+      }
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

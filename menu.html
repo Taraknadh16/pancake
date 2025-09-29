@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pancake Paradise | Menu</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif;}
+    body {background:#fffaf3;color:#333;}
+    header {background:#ffb347; padding:15px 40px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100;}
+    .logo {font-size:1.5rem; font-weight:bold; color:#fff;}
+    nav ul {list-style:none; display:flex; gap:20px;}
+    nav ul li a {text-decoration:none; color:#fff; font-weight:500; transition:color 0.3s;}
+    nav ul li a:hover {color:#222;}
+    .page-title {text-align:center; margin:30px 0;}
+    .page-title h1 {font-size:2.5rem; color:#333;}
+    .filters {display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:20px;}
+    select {padding:8px 12px; border-radius:8px; border:2px solid #ffb347; outline:none; cursor:pointer;}
+    .pancake-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:20px 40px;}
+    .pancake-card {background:#fff; border-radius:15px; box-shadow:0 4px 8px rgba(0,0,0,0.1); overflow:hidden; transition:transform 0.3s;}
+    .pancake-card:hover {transform:scale(1.03);}
+    .pancake-card img {width:100%; height:180px; object-fit:cover;}
+    .info {padding:15px;}
+    .info h3 {margin-bottom:8px; font-size:1.2rem;}
+    .info p {font-size:0.9rem; margin-bottom:10px;}
+    .price {font-weight:bold; color:#ff9933; margin-bottom:10px; display:block;}
+    .actions {display:flex; justify-content:space-between; align-items:center;}
+    .actions button, .actions a {padding:8px 14px; border:none; border-radius:20px; cursor:pointer; transition:background 0.3s; font-size:0.9rem; text-decoration:none;}
+    .add-btn {background:#ffb347; color:#fff;}
+    .add-btn:hover {background:#ff9933;}
+    .details-btn {background:#eee; color:#333;}
+    .details-btn:hover {background:#ddd;}
+    footer {background:#ffb347; color:#fff; text-align:center; padding:15px; margin-top:40px;}
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">🥞 Pancake Paradise</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="orders.html">Orders</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page Title -->
+  <div class="page-title">
+    <h1>Our Pancake Menu</h1>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <select id="typeFilter">
+      <option value="all">Filter by Type</option>
+      <option value="Fluffy">Fluffy</option>
+      <option value="Crispy">Crispy</option>
+      <option value="Sweet">Sweet</option>
+      <option value="Vegan">Vegan</option>
+      <option value="Country">Country-style</option>
+    </select>
+
+    <select id="priceFilter">
+      <option value="all">Sort by Price</option>
+      <option value="low">Low to High</option>
+      <option value="high">High to Low</option>
+    </select>
+
+    <select id="popularityFilter">
+      <option value="all">Sort by Popularity</option>
+      <option value="high">Most Popular</option>
+      <option value="low">Least Popular</option>
+    </select>
+  </div>
+
+  <!-- Pancake Grid -->
+  <div class="pancake-grid" id="pancakeGrid"></div>
+
+  <footer>
+    <p>&copy; 2025 Pancake Paradise. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const pancakes = [
+      {id:"classic-fluffy", name:"Classic Fluffy Pancake", type:"Fluffy", price:120, popularity:5,
+       desc:"Soft and airy with maple syrup.", img:"https://images.unsplash.com/photo-1559628233-015f1422d7e6?auto=format&fit=crop&w=600&q=80"},
+      {id:"crispy-butter", name:"Crispy Butter Pancake", type:"Crispy", price:150, popularity:4,
+       desc:"Golden brown with butter topping.", img:"https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=600&q=80"},
+      {id:"vegan-fruit", name:"Vegan Fruit Pancake", type:"Vegan", price:180, popularity:3,
+       desc:"Dairy-free with fresh fruits.", img:"https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=600&q=80"},
+      {id:"chocolate", name:"Chocolate Pancake", type:"Sweet", price:200, popularity:5,
+       desc:"Rich chocolate-filled delight.", img:"https://images.unsplash.com/photo-1587732358474-0b79d3cfa6d7?auto=format&fit=crop&w=600&q=80"},
+      {id:"country-style", name:"Country-Style Pancake", type:"Country", price:170, popularity:4,
+       desc:"Traditional pancake with rustic taste.", img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"},
+      {id:"berry-blast", name:"Berry Blast Pancake", type:"Sweet", price:220, popularity:5,
+       desc:"Loaded with blueberries & strawberries.", img:"https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=600&q=80"},
+    ];
+
+    const grid = document.getElementById("pancakeGrid");
+
+    function displayPancakes(list) {
+      grid.innerHTML = "";
+      list.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "pancake-card";
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <div class="info">
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <span class="price">₹${p.price}</span>
+            <div class="actions">
+              <button class="add-btn" onclick="alert('Added ${p.name} to cart!')">Add to Cart</button>
+              <a class="details-btn" href="details.html?pancake=${p.id}">View Details</a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Initial display
+    displayPancakes(pancakes);
+
+    // Filters
+    document.getElementById("typeFilter").addEventListener("change", function() {
+      let value = this.value;
+      let filtered = value==="all"?pancakes:pancakes.filter(p=>p.type===value);
+      displayPancakes(filtered);
+    });
+    document.getElementById("priceFilter").addEventListener("change", function() {
+      let value = this.value;
+      let sorted = [...pancakes];
+      if(value==="low") sorted.sort((a,b)=>a.price-b.price);
+      if(value==="high") sorted.sort((a,b)=>b.price-a.price);
+      displayPancakes(sorted);
+    });
+    document.getElementById("popularityFilter").addEventListener("change", function() {
+      let value = this.value;
+      let sorted = [...pancakes];
+      if(value==="high") sorted.sort((a,b)=>b.popularity-a.popularity);
+      if(value==="low") sorted.sort((a,b)=>a.popularity-b.popularity);
+      displayPancakes(sorted);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pancake Paradise | Checkout</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #fffaf3;
+      color: #333;
+    }
+
+    /* Navbar */
+    header {
+      background: #ffb347;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      color: #222;
+    }
+
+    /* Checkout Container */
+    .checkout-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 30px;
+    }
+
+    /* Left Form */
+    .checkout-form {
+      flex: 2;
+    }
+
+    .checkout-form h2 {
+      margin-bottom: 15px;
+      color: #ff9933;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    /* Right Summary */
+    .checkout-summary {
+      flex: 1;
+      background: #fffaf0;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #f1c27d;
+    }
+
+    .checkout-summary h2 {
+      margin-bottom: 15px;
+      color: #ff9933;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .summary-total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 15px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+      color: #ff9933;
+    }
+
+    /* Button */
+    .place-order {
+      margin-top: 25px;
+      padding: 12px;
+      width: 100%;
+      background: #ffb347;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .place-order:hover {
+      background: #ff9933;
+    }
+
+    /* Footer */
+    footer {
+      background: #ffb347;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">🥞 Pancake Paradise</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="orders.html">Orders</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Checkout Section -->
+  <section class="checkout-container">
+    <!-- Left: Form -->
+    <div class="checkout-form">
+      <h2>Customer Details</h2>
+
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" placeholder="Enter phone number">
+      </div>
+
+      <div class="form-group">
+        <label for="address">Delivery Address</label>
+        <textarea id="address" placeholder="Enter your full address"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="payment">Payment Method</label>
+        <select id="payment">
+          <option value="cod">Cash on Delivery</option>
+          <option value="upi">UPI</option>
+          <option value="card">Credit/Debit Card</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Right: Summary -->
+    <div class="checkout-summary">
+      <h2>Order Summary</h2>
+
+      <div class="summary-item">
+        <span>Classic Fluffy Pancake x1</span>
+        <span>₹120</span>
+      </div>
+      <div class="summary-item">
+        <span>Chocolate Pancake x2</span>
+        <span>₹240</span>
+      </div>
+
+      <div class="summary-total">
+        Total: ₹360
+      </div>
+
+      <button class="place-order" onclick="placeOrder()">Place Order</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Pancake Paradise. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function placeOrder() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const address = document.getElementById("address").value;
+
+      if (!name || !phone || !address) {
+        alert("⚠️ Please fill in all details before placing order!");
+        return;
+      }
+
+      alert("🎉 Thank you " + name + "! Your order has been placed successfully.");
+      window.location.href = "orders.html"; // redirect to Orders page
+    }
+  </script>
+
+</body>
+</html>

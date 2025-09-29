@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pancake Paradise | Pancake Details</title>
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+    body{background:#fffaf3;color:#333;}
+    header{background:#ffb347;padding:15px 40px;display:flex;justify-content:space-between;align-items:center;}
+    .logo{font-size:1.5rem;font-weight:bold;color:#fff;}
+    nav ul{list-style:none;display:flex;gap:20px;}
+    nav ul li a{text-decoration:none;color:#fff;font-weight:500;}
+    nav ul li a:hover{color:#222;}
+    .details-container{display:flex;flex-wrap:wrap;gap:30px;padding:40px;}
+    .image-box{flex:1 1 400px;}
+    .image-box img{width:100%;border-radius:15px;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+    .info-box{flex:1 1 400px;}
+    .info-box h1{font-size:2rem;margin-bottom:15px;}
+    .info-box p{font-size:1rem;margin-bottom:15px;}
+    .price{font-size:1.3rem;font-weight:bold;color:#ff9933;margin-bottom:15px;}
+    .ingredients{margin-bottom:20px;}
+    .ingredients h3{margin-bottom:10px;}
+    .ingredients ul{list-style:none;}
+    .ingredients ul li{margin-bottom:5px;}
+    .available{color:green;font-weight:bold;}
+    .unavailable{color:red;font-weight:bold;}
+    .addons{margin-bottom:20px;}
+    .addons label{display:block;margin-bottom:8px;cursor:pointer;}
+    .actions{display:flex;gap:15px;}
+    .actions button{padding:12px 20px;border:none;border-radius:25px;font-size:1rem;cursor:pointer;transition:background 0.3s;}
+    .add-btn{background:#ffb347;color:#fff;}
+    .add-btn:hover{background:#ff9933;}
+    .order-btn{background:#333;color:#fff;}
+    .order-btn:hover{background:#555;}
+    footer{background:#ffb347;color:#fff;text-align:center;padding:15px;margin-top:40px;}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🥞 Pancake Paradise</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="orders.html">Orders</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="details-container">
+  <div class="image-box">
+    <img id="pancakeImg" src="" alt="Pancake">
+  </div>
+  <div class="info-box">
+    <h1 id="pancakeName"></h1>
+    <p id="pancakeDesc"></p>
+    <div class="price" id="pancakePrice"></div>
+
+    <div class="ingredients">
+      <h3>Ingredients Availability:</h3>
+      <ul id="ingredientsList"></ul>
+    </div>
+
+    <div class="addons">
+      <h3>Select Add-ons:</h3>
+      <label><input type="checkbox" value="Extra Syrup"> Extra Syrup (+₹20)</label>
+      <label><input type="checkbox" value="Choco Chips"> Chocolate Chips (+₹30)</label>
+      <label><input type="checkbox" value="Fruit Toppings"> Fruit Toppings (+₹40)</label>
+    </div>
+
+    <p id="cookingTime"><b>Estimated Cooking Time:</b></p>
+
+    <div class="actions">
+      <button class="add-btn" onclick="addToCart()">Add to Cart</button>
+      <button class="order-btn" onclick="orderNow()">Order Now</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Pancake Paradise. All rights reserved.</p>
+</footer>
+
+<script>
+  const pancakes = {
+    "classic-fluffy": {name:"Classic Fluffy Pancake", desc:"Soft and airy with maple syrup.", price:120, img:"https://images.unsplash.com/photo-1559628233-015f1422d7e6?auto=format&fit=crop&w=800&q=80", ingredients:[{name:"Flour",available:true},{name:"Eggs",available:true},{name:"Milk",available:false},{name:"Butter",available:true}], cookingTime:"10 minutes"},
+    "crispy-butter": {name:"Crispy Butter Pancake", desc:"Golden brown with butter topping.", price:150, img:"https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=800&q=80", ingredients:[{name:"Flour",available:true},{name:"Eggs",available:true},{name:"Milk",available:true},{name:"Butter",available:true}], cookingTime:"12 minutes"},
+    "vegan-fruit": {name:"Vegan Fruit Pancake", desc:"Dairy-free with fresh fruits.", price:180, img:"https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=800&q=80", ingredients:[{name:"Flour",available:true},{name:"Plant Milk",available:true},{name:"Fruits",available:true}], cookingTime:"15 minutes"},
+    "chocolate": {name:"Chocolate Pancake", desc:"Rich chocolate-filled delight.", price:200, img:"https://images.unsplash.com/photo-1587732358474-0b79d3cfa6d7?auto=format&fit=crop&w=800&q=80", ingredients:[{name:"Flour",available:true},{name:"Eggs",available:true},{name:"Milk",available:true},{name:"Chocolate",available:true}], cookingTime:"12 minutes"},
+    "country-style": {name:"Country-Style Pancake", desc:"Traditional pancake with rustic taste.", price:170, img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80", ingredients:[{name:"Flour",available:true},{name:"Eggs",available:true},{name:"Milk",available:true},{name:"Butter",available:true}], cookingTime:"14 minutes"},
+    "berry-blast": {name:"Berry Blast Pancake", desc:"Loaded with blueberries & strawberries.", price:220, img:"https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=800&q=80", ingredients:[{name:"Flour",available:true},{name:"Eggs",available:true},{name:"Milk",available:true},{name:"Berries",available:true}], cookingTime:"15 minutes"}
+  };
+
+  // Get query parameter
+  const params = new URLSearchParams(window.location.search);
+  const pancakeId = params.get("pancake");
+
+  if(pancakes[pancakeId]){
+    const p = pancakes[pancakeId];
+    document.getElementById("pancakeName").innerText = p.name;
+    document.getElementById("pancakeDesc").innerText = p.desc;
+    document.getElementById("pancakePrice").innerText = `₹${p.price}`;
+    document.getElementById("pancakeImg").src = p.img;
+
+    // Ingredients
+    const ingUl = document.getElementById("ingredientsList");
+    ingUl.innerHTML = "";
+    p.ingredients.forEach(ing=>{
+      const li = document.createElement("li");
+      li.innerHTML = `${ing.name} - <span class="${ing.available?'available':'unavailable'}">${ing.available?'Available':'Not Available'}</span>`;
+      ingUl.appendChild(li);
+    });
+
+    // Cooking time
+    document.getElementById("cookingTime").innerHTML = `<b>Estimated Cooking Time:</b> ${p.cookingTime} ⏱️`;
+  }
+
+  function addToCart(){
+    alert(`${pancakes[pancakeId].name} added to Cart!`);
+  }
+
+  function orderNow(){
+    alert(`Redirecting to Checkout Page for ${pancakes[pancakeId].name}...`);
+  }
+</script>
+
+</body>
+</html>
